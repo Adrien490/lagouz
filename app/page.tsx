@@ -10,7 +10,7 @@ const Page = () => {
 		<div className="relative h-full flex flex-col px-4 justify-between">
 			<div
 				className={cn(
-					"h-14 px-4 flex items-center fixed w-full top-0 left-0 right-0 justify-between  opacity-95 z-20"
+					"h-14 px-4 flex items-center bg-background justify-between  opacity-95 z-20"
 				)}
 			>
 				<SparklesText className="text-3xl" text="La Gouz" />
