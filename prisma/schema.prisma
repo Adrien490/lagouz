@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
+
+model NeverHaveIEverCard {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  categoryId Int
+  createdAt  DateTime @default(now())
+}
+
+model TruthOrDareCard {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  categoryId Int
+  createdAt  DateTime @default(now())
+}
