@@ -46,7 +46,7 @@ const PlayerListDrawer = () => {
 			const formData = new FormData();
 			formData.append("name", values.name);
 			const player = await createPlayer(formData);
-			if (player) {
+			if (player && !("error" in player)) {
 				setPlayers([...players, player]);
 			} else {
 				throw new Error("Le joueur n'a pas été créé");
@@ -57,7 +57,9 @@ const PlayerListDrawer = () => {
 	};
 
 	const onDelete = async ({ playerName }: { playerName: string }) => {
-		await deletePlayer(playerName);
+		const formData = new FormData();
+		formData.append("name", playerName);
+		await deletePlayer(formData);
 		setPlayers(players.filter((player) => player.name !== playerName));
 	};
 
