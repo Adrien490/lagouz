@@ -7,10 +7,10 @@ import { MessageCircleQuestion, Users2 } from "lucide-react";
 
 const Page = () => {
 	return (
-		<div className="relative h-full flex flex-col px-4 justify-between">
+		<div className="h-full flex flex-col px-4">
 			<div
 				className={cn(
-					"h-14 px-4 flex items-center bg-background justify-between  opacity-95 z-20"
+					"h-14 px-4 flex items-center bg-background justify-between opacity-95 z-20"
 				)}
 			>
 				<SparklesText className="text-3xl" text="La Gouz" />

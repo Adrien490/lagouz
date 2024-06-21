@@ -23,7 +23,7 @@ const GameList = () => {
 	};
 	return (
 		<motion.div
-			className="flex py-24 snap-y flex-col grow overflow-y-auto gap-4 overflow-x-hidden"
+			className="flex py-8 snap-y flex-col grow overflow-y-auto gap-4 overflow-x-hidden"
 			variants={listVariants}
 			initial="hidden"
 			animate="visible"
