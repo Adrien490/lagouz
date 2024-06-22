@@ -31,7 +31,7 @@ const PlayerListDrawer = ({ players }: PlayerListDrawerProps) => {
 
 	return (
 		<Drawer open={open} onClose={mainDrawer.onClose}>
-			<DrawerContent className="flex flex-col h-[75dvh]">
+			<DrawerContent className="flex flex-col h-full">
 				<DrawerHeader className="w-full">
 					<DrawerTitle className="text-center">
 						Liste des joueurs ({players.length})
