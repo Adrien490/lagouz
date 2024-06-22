@@ -1,28 +1,34 @@
 "use client";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import createPlayer from "@/lib/actions/create-player";
+import { PlayerFormSchema } from "@/lib/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 
-interface PlayerFormProps {
-	onSubmit: (values: { name: string }) => void;
-}
-
-const PlayerForm = ({ onSubmit }: PlayerFormProps) => {
+const PlayerForm = () => {
+	const { execute, result, isExecuting } = useAction(createPlayer);
 	const form = useForm({
+		resolver: zodResolver(PlayerFormSchema),
 		defaultValues: {
 			name: "",
 		},
 	});
 
-	const submit = async (values: { name: string }) => {
-		onSubmit(values);
+	const onSubmit = async () => {
+		execute(form.getValues());
 		form.reset();
 	};
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(submit)}>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					form.handleSubmit(onSubmit)();
+				}}
+			>
 				<FormField
 					name="name"
 					control={form.control}

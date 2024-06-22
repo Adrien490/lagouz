@@ -59,7 +59,7 @@ const CategoryList = ({
 							category.id !== selectedCategory?.id && "hidden"
 						)}
 					>
-						<BorderBeam size={100} borderWidth={3} duration={10} delay={9} />
+						<BorderBeam size={80} borderWidth={3} duration={10} delay={9} />
 					</div>
 				</motion.div>
 			))}

@@ -2,13 +2,11 @@
 
 import { DialogData, DialogType, useDialog } from "@/hooks/use-dialog";
 import useDrawer, { DrawerData, DrawerType } from "@/hooks/use-drawer";
-import { SheetData, SheetType, useSheet } from "@/hooks/use-sheet";
-import { NeverHaveIEverCard } from "@prisma/client";
+import { SheetData } from "@/hooks/use-sheet";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
 interface IconButtonProps {
-	sheetType?: SheetType;
 	drawerType?: DrawerType;
 	dialogType?: DialogType;
 	linkUrl?: string;
@@ -17,10 +15,7 @@ interface IconButtonProps {
 	onClick?: () => void;
 }
 
-export type IconButtonData = NeverHaveIEverCard[] | "gameDrawer";
-
 const IconButton = ({
-	sheetType,
 	drawerType,
 	dialogType,
 	linkUrl,
@@ -28,7 +23,6 @@ const IconButton = ({
 	data,
 	onClick: onClickProp,
 }: IconButtonProps) => {
-	const { onOpen: onOpenSheet } = useSheet();
 	const { mainDrawer, nestedDrawer } = useDrawer();
 	const { onOpen: onOpenDialog } = useDialog();
 	const router = useRouter();
@@ -36,9 +30,6 @@ const IconButton = ({
 	const onClick = () => {
 		if (onClickProp) {
 			onClickProp();
-		}
-		if (sheetType) {
-			onOpenSheet(sheetType, data);
 		}
 		if (drawerType) {
 			mainDrawer.onOpen(drawerType, data);
