@@ -11,9 +11,9 @@ import deletePlayer from "@/lib/actions/delete-player";
 import { Player } from "@prisma/client";
 import { Loader2, X } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import FormError from "./form-error";
+import FormError from "../../../components/form-error";
+import { Button } from "../../../components/ui/button";
 import PlayerForm from "./player-form";
-import { Button } from "./ui/button";
 
 export interface PlayerListDrawerProps {
 	players: Player[];

@@ -10,14 +10,21 @@ import { useDialog } from "@/hooks/use-dialog";
 import Image from "next/image";
 import { Button } from "./ui/button";
 
+export interface ConfirmationDialogProps {
+	title: string;
+	message: string;
+	onConfirm: () => void;
+}
+
 const ConfirmationDialog = () => {
 	const { isOpen, type, onClose, data } = useDialog();
 	const open = isOpen && type === "confirmation";
-	const title = data.title;
-	const message = data.message;
+	const title = data.confirmationDialogProps?.title;
+	const message = data.confirmationDialogProps?.message;
+	const onConfirm = data.confirmationDialogProps?.onConfirm;
 	const handleConfirm = () => {
-		if (data.onConfirm) {
-			data.onConfirm();
+		if (onConfirm) {
+			onConfirm();
 		}
 		onClose();
 	};

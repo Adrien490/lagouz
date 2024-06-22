@@ -33,7 +33,7 @@ const deletePlayer = actionClient
 			},
 		});
 
-		revalidatePath("/");
+		revalidatePath("/games");
 		return deletedPlayer;
 	});
 

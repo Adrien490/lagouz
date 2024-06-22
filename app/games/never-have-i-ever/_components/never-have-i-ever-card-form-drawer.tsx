@@ -8,26 +8,15 @@ import {
 	DrawerTitle,
 } from "@/components/ui/drawer";
 import useDrawer from "@/hooks/use-drawer";
-import { NeverHaveIEverCardSchema } from "@/lib/schemas";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { z } from "zod";
 import NeverHaveIEverCardForm from "./never-have-i-ever-card-form";
 
-interface NeverHaveIEverCardFormDrawerProps {
-	handleCreate: (values: z.infer<typeof NeverHaveIEverCardSchema>) => void;
-	handleUpdate: (values: z.infer<typeof NeverHaveIEverCardSchema>) => void;
-}
-
-const NeverHaveIEverCardFormDrawer = ({
-	handleCreate,
-	handleUpdate,
-}: NeverHaveIEverCardFormDrawerProps) => {
+const NeverHaveIEverCardFormDrawer = () => {
 	const { nestedDrawer } = useDrawer();
-	const open = nestedDrawer.type === "neverHaveIEverCardFormDrawer";
 	return (
 		<Drawer
-			open={open}
+			open={nestedDrawer.type === "neverHaveIEverCardFormDrawer"}
 			onClose={() => {
 				nestedDrawer.onClose();
 			}}
@@ -55,16 +44,7 @@ const NeverHaveIEverCardFormDrawer = ({
 				</DrawerHeader>
 
 				<div className="px-4 mt-4 mb-4">
-					<NeverHaveIEverCardForm
-						initialValues={nestedDrawer.data.card}
-						handleSubmit={(values) => {
-							if ("id" in values) {
-								handleUpdate(values);
-							} else {
-								handleCreate(values);
-							}
-						}}
-					/>
+					<NeverHaveIEverCardForm initialValues={nestedDrawer.data.card} />
 				</div>
 			</DrawerContent>
 		</Drawer>

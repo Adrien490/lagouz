@@ -7,8 +7,8 @@ import {
 	DrawerTitle,
 } from "@/components/ui/drawer";
 
-import CategoryList from "@/components/category-list";
-import StartGameButton from "@/components/start-game-button";
+import CategoryList from "@/app/games/_components/category-list";
+import StartGameButton from "@/app/games/_components/start-game-button";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NeverHaveIEverCategories } from "@/data/categories";
@@ -64,7 +64,7 @@ const GameDrawer = () => {
 					</div>
 					<DrawerFooter className="">
 						<StartGameButton
-							href={`/${game?.slug}?category=${selectedCategory?.slug}`}
+							href={`/games/${game?.slug}?category=${selectedCategory?.slug}`}
 						/>
 					</DrawerFooter>
 				</ScrollArea>

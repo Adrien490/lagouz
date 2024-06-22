@@ -1,8 +1,10 @@
+import { ConfirmationDialogProps } from "@/components/confirmation-dialog";
 import { create } from "zustand";
 
 export type DialogType = "confirmation" | "info" | "warning" | "search";
 
 export interface DialogData {
+	confirmationDialogProps?: ConfirmationDialogProps;
 	title?: string;
 	message?: string;
 	onConfirm?: () => void;

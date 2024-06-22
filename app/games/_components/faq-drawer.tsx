@@ -16,8 +16,8 @@ import {
 import useDrawer from "@/hooks/use-drawer";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { ScrollArea } from "./ui/scroll-area";
+import { Button } from "../../../components/ui/button";
+import { ScrollArea } from "../../../components/ui/scroll-area";
 
 const FAQDrawer = () => {
 	const { mainDrawer } = useDrawer();

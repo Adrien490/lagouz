@@ -1,29 +1,37 @@
-import GameList from "@/components/game-list";
-import IconButton from "@/components/icon-button";
+"use client";
+import LoginDrawer from "@/components/login-drawer";
 import Logo from "@/components/logo";
-import PlayerListDrawer from "@/components/player-list-drawer";
-import db from "@/lib/db";
+import { Button } from "@/components/ui/button";
+import useAdmin from "@/hooks/use-admin";
+import useDrawer from "@/hooks/use-drawer";
 import { cn } from "@/lib/utils";
-import { MessageCircleQuestion, Users2 } from "lucide-react";
 
-const Page = async () => {
-	const players = await db.player.findMany();
-
+const Page = () => {
+	const { mainDrawer } = useDrawer();
+	const { isAdmin } = useAdmin();
+	console.log(isAdmin);
 	return (
 		<div className="h-full flex flex-col px-4">
 			<div
 				className={cn(
-					"h-14 py-2 flex items-center bg-background justify-between opacity-95 z-20"
+					"h-14 py-2 flex items-center bg-background opacity-95 z-20"
 				)}
 			>
 				<Logo />
-				<div className="flex items-center gap-2">
-					<IconButton drawerType="playerListDrawer" icon={<Users2 />} />
-					<IconButton drawerType="FAQ" icon={<MessageCircleQuestion />} />
-				</div>
 			</div>
-			<GameList />
-			<PlayerListDrawer players={players} />
+
+			<div className="grow flex justify-center mt-8 overflow-y-auto overflow-x-hidden"></div>
+			<div className="flex h-20 bg-background justify-center items-center">
+				<Button
+					variant="ghost"
+					onClick={() => {
+						mainDrawer.onOpen("loginDrawer");
+					}}
+				>
+					Se connecter
+				</Button>
+			</div>
+			<LoginDrawer />
 		</div>
 	);
 };

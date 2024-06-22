@@ -1,7 +1,7 @@
 "use client";
 
+import SwiperCards from "@/app/games/_components/swiper-cards";
 import IconButton from "@/components/icon-button";
-import SwiperCards from "@/components/swiper-cards";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
@@ -9,26 +9,23 @@ import { NeverHaveIEverCard } from "@prisma/client";
 import { motion } from "framer-motion";
 import { ArrowLeft, Check, Settings, Undo2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
+import NeverHaveIEverSettingsDrawer from "./never-have-i-ever-settings-drawer";
 
 interface NeverIHaveEverWrapperProps {
+	allCards: NeverHaveIEverCard[];
 	neverHaveIEverCards: NeverHaveIEverCard[];
 }
 
 const NeverIHaveEverWrapper = ({
+	allCards,
 	neverHaveIEverCards,
 }: NeverIHaveEverWrapperProps) => {
 	const router = useRouter();
-	const [cards, setCards] = useState<NeverHaveIEverCard[]>([]);
 	const [progress, setProgress] = useState(0);
 	const swiperRef = useRef<SwiperType | null>(null);
-
-	useEffect(() => {
-		const shuffledCards = neverHaveIEverCards.sort(() => Math.random() - 0.5);
-		setCards(shuffledCards);
-	}, [neverHaveIEverCards]);
 
 	const handleSlideChange = (swiper: SwiperType) => {
 		const totalSlides = swiper.slides.length - 1;
@@ -70,7 +67,7 @@ const NeverIHaveEverWrapper = ({
 						title: "Quitter le jeu ?",
 						message: "Tu veux vraiment quitter le jeu ?",
 						onConfirm: () => {
-							router.push("/");
+							router.push("/games");
 						},
 					}}
 				/>
@@ -87,7 +84,7 @@ const NeverIHaveEverWrapper = ({
 					swiperRef={swiperRef}
 					handleSlideChange={handleSlideChange}
 				>
-					{cards.map((card, index) => (
+					{neverHaveIEverCards.map((card, index) => (
 						<SwiperSlide
 							className="rounded-lg border-4 border-white bg-[#FF0086]"
 							key={card.id}
@@ -130,6 +127,7 @@ const NeverIHaveEverWrapper = ({
 					))}
 				</div>
 			</div>
+			<NeverHaveIEverSettingsDrawer cards={allCards} />
 		</div>
 	);
 };

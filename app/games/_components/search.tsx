@@ -4,7 +4,7 @@ import { useDialog } from "@/hooks/use-dialog";
 import { useSearch } from "@/hooks/use-search";
 import { SearchIcon, X } from "lucide-react";
 import { useEffect } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../../../components/ui/button";
 
 const Search = () => {
 	const { search, setSearch } = useSearch();

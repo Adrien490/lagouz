@@ -29,7 +29,7 @@ const createPlayer = actionClient
 			},
 		});
 
-		revalidatePath("/");
+		revalidatePath("/games");
 		return player;
 	});
 

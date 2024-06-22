@@ -1,5 +1,5 @@
-import { NeverHaveIEverCardFormProps } from "@/app/never-have-i-ever/_components/never-have-i-ever-card-form";
-import { PlayerListDrawerProps } from "@/components/player-list-drawer";
+import { PlayerListDrawerProps } from "@/app/games/_components/player-list-drawer";
+import { NeverHaveIEverCardFormProps } from "@/app/games/never-have-i-ever/_components/never-have-i-ever-card-form";
 import { Game } from "@/data/games";
 import { NeverHaveIEverCard } from "@prisma/client";
 import { create } from "zustand";
@@ -7,6 +7,7 @@ import { create } from "zustand";
 export type DrawerType =
 	| "confirmationDrawer"
 	| "gameDrawer"
+	| "loginDrawer"
 	| "FAQ"
 	| "cardManagerDrawer"
 	| "nestedDrawer"

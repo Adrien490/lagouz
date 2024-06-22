@@ -5,7 +5,7 @@ import { useCategorySelection } from "@/hooks/use-category-selection";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
-import { BorderBeam } from "./magicui/border-beam";
+import { BorderBeam } from "../../../components/magicui/border-beam";
 
 interface CategoryListProps {
 	categories: Category[];

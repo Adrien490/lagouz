@@ -1,7 +1,7 @@
 "use client";
 
-import CategoryList from "@/components/category-list";
-import SubmitButton from "@/components/submit-button";
+import CategoryList from "@/app/games/_components/category-list";
+import SubmitButton from "@/app/games/_components/submit-button";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { NeverHaveIEverCategories } from "@/data/categories";
@@ -16,12 +16,10 @@ export interface NeverHaveIEverCardFormProps {
 		categoryId: number;
 		id?: number;
 	};
-	handleSubmit: (values: z.infer<typeof NeverHaveIEverCardSchema>) => void;
 }
 
 const NeverHaveIEverCardForm = ({
 	initialValues,
-	handleSubmit,
 }: NeverHaveIEverCardFormProps) => {
 	const { selectedCategory } = useCategorySelection();
 	const initialValuesCategory =
@@ -42,7 +40,6 @@ const NeverHaveIEverCardForm = ({
 			...values,
 			categoryId: selectedCategory?.id ?? 0,
 		};
-		handleSubmit(data);
 	};
 
 	return (

@@ -11,8 +11,8 @@ import { useDialog } from "@/hooks/use-dialog";
 import { useSearch } from "@/hooks/use-search";
 import Image from "next/image";
 import { useEffect } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
 
 const SearchDialog = () => {
 	const { isOpen, type, onClose } = useDialog();

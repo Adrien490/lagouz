@@ -12,6 +12,7 @@ const Page = async ({
 	const categorySlug = searchParams.category;
 	let categoryId: number | null = null;
 	let cards;
+	const allCards = await db.neverHaveIEverCard.findMany();
 
 	try {
 		if (categorySlug) {
@@ -39,7 +40,12 @@ const Page = async ({
 		return <div>Error loading cards</div>;
 	}
 
-	return <NeverHaveIEverWrapper neverHaveIEverCards={cards} />;
+	return (
+		<NeverHaveIEverWrapper
+			allCards={allCards}
+			neverHaveIEverCards={cards.sort(() => Math.random() - 0.5)}
+		/>
+	);
 };
 
 export default Page;

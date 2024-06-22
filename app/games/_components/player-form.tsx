@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
-import { Button } from "./ui/button";
+import { Button } from "../../../components/ui/button";
 
 const PlayerForm = () => {
 	const { execute, result, isExecuting } = useAction(createPlayer);

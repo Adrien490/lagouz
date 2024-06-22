@@ -14,3 +14,7 @@ export const NeverHaveIEverCardSchema = z.object({
 export const DeleteNeverHaveIEverCardSchema = z.object({
 	id: z.number().int(),
 });
+
+export const AdminFormSchema = z.object({
+	password: z.string().min(1, "Le mot de passe est obligatoire"),
+});
