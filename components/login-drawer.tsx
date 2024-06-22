@@ -29,8 +29,7 @@ const LoginDrawer = () => {
 						<Image src="/icons/lock.svg" alt="Lock" width={30} height={30} />
 					</DrawerTitle>
 					<DrawerDescription>
-						Pour accéder à l&apos;application en mode administrateur, saisir le
-						mot de passe
+						Pour accéder à l&apos;application en mode administrateur 😎
 					</DrawerDescription>
 				</DrawerHeader>
 				<ScrollArea className="overflow-y-auto">
