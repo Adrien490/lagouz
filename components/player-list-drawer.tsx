@@ -33,14 +33,17 @@ const PlayerListDrawer = ({ players }: PlayerListDrawerProps) => {
 	return (
 		<Drawer open={open} onClose={mainDrawer.onClose}>
 			<DrawerContent className="flex flex-col h-[75dvh]">
-				<DrawerHeader className="text-center">
+				<DrawerHeader className="w-full">
 					<DrawerTitle className="text-center">
 						Liste des joueurs ({players.length})
 					</DrawerTitle>
 				</DrawerHeader>
 				{message && <FormError>{message}</FormError>}
-				<div className="w-60 mx-auto mt-4 mb-4">
+				<div className="w-60 mx-auto mt-4 mb-4 flex gap-2 items-center">
 					<PlayerForm />
+					{isExecuting && (
+						<Loader2 className="animate-spin text-red-300 w-6 h-6" />
+					)}
 				</div>
 
 				<div className="mb-2 grow flex flex-col gap-2 overflow-y-auto overflow-x-hidden">
@@ -53,16 +56,10 @@ const PlayerListDrawer = ({ players }: PlayerListDrawerProps) => {
 								<p className="text-sm text-left flex-1 font-bold truncate">
 									{player.name}
 								</p>
-								{isExecuting ? (
-									<Loader2 className="mr-4 animate-spin text-red-300 w-6 h-6" />
-								) : (
-									<Button
-										variant="ghost"
-										onClick={() => handleDelete(player.id)}
-									>
-										<X className="text-red-300" />
-									</Button>
-								)}
+
+								<Button variant="ghost" onClick={() => handleDelete(player.id)}>
+									<X className="text-red-300" />
+								</Button>
 							</div>
 						))}
 					</AnimatePresence>
