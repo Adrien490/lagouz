@@ -78,7 +78,7 @@ const NeverIHaveEverWrapper = ({
 				/>
 				<Progress
 					indicatorColor="#FF0086"
-					className="w-[240px]"
+					className="w-[220px]"
 					value={progress}
 				/>
 
