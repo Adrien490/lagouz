@@ -12,7 +12,6 @@ import { Player } from "@prisma/client";
 import { AnimatePresence } from "framer-motion";
 import { Loader2, X } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import { useState } from "react";
 import FormError from "./form-error";
 import PlayerForm from "./player-form";
 import { Button } from "./ui/button";
@@ -24,11 +23,8 @@ export interface PlayerListDrawerProps {
 const PlayerListDrawer = ({ players }: PlayerListDrawerProps) => {
 	const { mainDrawer } = useDrawer();
 	const open = mainDrawer.type === "playerListDrawer";
+	const message = mainDrawer.data?.message ?? null;
 	const { execute, result, isExecuting } = useAction(deletePlayer);
-
-	const [message, setMessage] = useState<string | null>(
-		mainDrawer.data?.message ?? null
-	);
 
 	const handleDelete = (id: number) => {
 		execute({ id });

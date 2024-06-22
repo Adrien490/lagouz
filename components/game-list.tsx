@@ -5,13 +5,15 @@ import useDrawer from "@/hooks/use-drawer";
 import checkPlayersCount from "@/lib/actions/check-players-count";
 import { itemVariants, listVariants } from "@/lib/animations";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 
 const GameList = () => {
 	const { mainDrawer } = useDrawer();
+	const { execute, result, isExecuting } = useAction(checkPlayersCount);
 	const onClick = async (game: Game) => {
-		const playersCount = await checkPlayersCount();
-		if (playersCount) {
+		execute();
+		if (result.data) {
 			mainDrawer.onOpen(game.drawerType, {
 				game: game,
 			});
