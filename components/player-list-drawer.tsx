@@ -41,7 +41,7 @@ const PlayerListDrawer = ({ players }: PlayerListDrawerProps) => {
 				{isExecuting && (
 					<Loader2 className="absolute bottom-4 right-4 animate-spin text-red-300 w-6 h-6" />
 				)}
-				<div className="w-60 mx-auto mt-4 mb-4 flex gap-2 items-center">
+				<div className="w-64 mx-auto mt-4 mb-4 flex gap-2 items-center">
 					<PlayerForm />
 				</div>
 
@@ -49,7 +49,7 @@ const PlayerListDrawer = ({ players }: PlayerListDrawerProps) => {
 					{players.map((player) => (
 						<div
 							key={player.id}
-							className="flex rounded-full bg-muted opacity-80 w-60 mx-auto py-4 justify-between items-center pl-4"
+							className="flex rounded-full bg-muted opacity-80 w-64 mx-auto py-4 justify-between items-center pl-4"
 						>
 							<p className="text-sm text-left flex-1 font-bold truncate">
 								{player.name}
