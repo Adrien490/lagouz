@@ -41,7 +41,11 @@ const LoginDrawer = () => {
 							<h4 className="text-center text-2xl">OU</h4>
 							<div className="bg-white/10 h-2 w-full rounded-lg"></div>
 						</div>
-						<Link className="mt-8" href="/games">
+						<Link
+							onClick={() => mainDrawer.onClose()}
+							className="mt-8"
+							href="/games"
+						>
 							<Button className="py-4 text-lg" variant="secondary">
 								Continuer en mode invité
 							</Button>
