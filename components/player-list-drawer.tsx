@@ -23,7 +23,7 @@ const PlayerListDrawer = ({ players }: PlayerListDrawerProps) => {
 	const { mainDrawer } = useDrawer();
 	const open = mainDrawer.type === "playerListDrawer";
 	const message = mainDrawer.data?.message ?? null;
-	const { execute, result, isExecuting } = useAction(deletePlayer);
+	const { execute, isExecuting } = useAction(deletePlayer);
 
 	const handleDelete = (id: number) => {
 		execute({ id });
@@ -49,7 +49,7 @@ const PlayerListDrawer = ({ players }: PlayerListDrawerProps) => {
 					{players.map((player) => (
 						<div
 							key={player.id}
-							className="flex rounded-full bg-muted opacity-80 w-64 mx-auto py-4 justify-between items-center pl-4"
+							className="flex rounded-full bg-muted opacity-80 w-64 mx-auto py-2 justify-between items-center pl-4"
 						>
 							<p className="text-sm text-left flex-1 font-bold truncate">
 								{player.name}
