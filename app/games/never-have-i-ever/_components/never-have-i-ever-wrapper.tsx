@@ -64,8 +64,13 @@ const NeverIHaveEverWrapper = ({
 					dialogType="confirmation"
 					icon={<ArrowLeft />}
 					data={{
-						title: "Quitter le jeu ?",
-						message: "Tu veux vraiment quitter le jeu ?",
+						confirmationDialogProps: {
+							title: "Quitter le jeu ?",
+							message: "Tu veux vraiment quitter le jeu ?",
+							onConfirm: () => {
+								router.push("/games");
+							},
+						},
 						onConfirm: () => {
 							router.push("/games");
 						},
