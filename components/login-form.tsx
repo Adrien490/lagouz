@@ -8,15 +8,16 @@ import {
 	InputOTPSlot,
 } from "@/components/ui/input-otp";
 import login from "@/lib/actions/login";
-import { AdminFormSchema } from "@/lib/schemas";
+import { LoginFormSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 
 const LoginForm = () => {
-	const { execute, result } = useAction(login);
+	const { execute, result, isExecuting } = useAction(login);
 	const form = useForm({
-		resolver: zodResolver(AdminFormSchema),
+		resolver: zodResolver(LoginFormSchema),
 		defaultValues: {
 			password: "",
 		},
@@ -51,7 +52,10 @@ const LoginForm = () => {
 				/>
 
 				<div className="pt-8 pb-4 w-full">
-					<SubmitButton>Je veux être admin</SubmitButton>
+					<SubmitButton>
+						Je veux être admin
+						{isExecuting && <Loader2 className="ml-2 w-4 h-4 animate-spin" />}
+					</SubmitButton>
 				</div>
 			</form>
 		</Form>

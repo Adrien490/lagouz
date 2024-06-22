@@ -5,10 +5,10 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { actionClient } from "../safe-action";
-import { AdminFormSchema } from "../schemas";
+import { LoginFormSchema } from "../schemas";
 
 const login = actionClient
-	.schema(AdminFormSchema, {
+	.schema(LoginFormSchema, {
 		handleValidationErrorsShape: (ve) =>
 			flattenValidationErrors(ve).fieldErrors,
 	})

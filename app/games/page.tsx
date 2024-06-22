@@ -5,15 +5,15 @@ import LoginButton from "@/components/login-button";
 import LoginDrawer from "@/components/login-drawer";
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
+import auth from "@/lib/auth";
 import db from "@/lib/db";
-import isAuthenticated from "@/lib/is-authenticated";
 import { cn } from "@/lib/utils";
 import { Lock, MessageCircleQuestion, Users2 } from "lucide-react";
 import LogoutButton from "./_components/logout-button";
 
 const Page = async () => {
 	const players = await db.player.findMany();
-	const isLogged = await isAuthenticated();
+	const { isAuthenticated } = await auth();
 
 	return (
 		<div className="h-full flex flex-col px-4">
@@ -26,7 +26,7 @@ const Page = async () => {
 				<div className="flex items-center gap-2">
 					<IconButton drawerType="playerListDrawer" icon={<Users2 />} />
 					<IconButton drawerType="FAQ" icon={<MessageCircleQuestion />} />
-					{isLogged ? (
+					{isAuthenticated ? (
 						<LogoutButton />
 					) : (
 						<LoginButton>
@@ -39,7 +39,7 @@ const Page = async () => {
 			</div>
 			<GameList />
 			<PlayerListDrawer players={players} />
-			{!isLogged && <LoginDrawer />}
+			{!isAuthenticated && <LoginDrawer />}
 		</div>
 	);
 };

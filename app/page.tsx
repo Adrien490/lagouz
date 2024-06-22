@@ -2,14 +2,13 @@
 import LoginDrawer from "@/components/login-drawer";
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import useAdmin from "@/hooks/use-admin";
+import useAuth from "@/hooks/use-auth";
 import useDrawer from "@/hooks/use-drawer";
 import { cn } from "@/lib/utils";
 
 const Page = () => {
 	const { mainDrawer } = useDrawer();
-	const { isAdmin } = useAdmin();
-	console.log(isAdmin);
+	const { isAuthenticated } = useAuth();
 	return (
 		<div className="h-full flex flex-col px-4">
 			<div
