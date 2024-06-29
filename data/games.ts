@@ -26,8 +26,7 @@ const games: Game[] = [
 		slug: "black-stories",
 		rules: "Découvrez les vérités cachées de vos amis !",
 		imageUrl: "/blackstories.jpg",
-		description:
-			"Explorez des scénarios sombres et mystérieux, mettant à l'épreuve vos capacités de déduction et votre imagination.",
+		description: "Explorez des scénarios sombres et mystérieux !",
 		drawerType: "neverHaveIEverDrawer",
 	},
 	{
@@ -37,7 +36,7 @@ const games: Game[] = [
 		rules: "Découvrez les vérités cachées de vos amis !",
 		imageUrl: "/actionouverite.webp",
 		description:
-			"Sortez de votre zone de confort ! Renforcer les liens entre amis et créer des souvenirs mémorables.",
+			"Renforcer les liens entre amis et créer des souvenirs mémorables !",
 		drawerType: "neverHaveIEverDrawer",
 	},
 	{
@@ -56,7 +55,7 @@ const games: Game[] = [
 		rules: "Découvrez les vérités cachées de vos amis !",
 		imageUrl: "/quidanslapiece.jpeg",
 		description:
-			"Deviner des caractéristiques ou des histoires concernant les personnes présentes. Parfait pour briser la glace!",
+			"Deviner des caractéristiques ou des histoires concernant les personnes présentes !",
 		drawerType: "neverHaveIEverDrawer",
 	},
 ];
