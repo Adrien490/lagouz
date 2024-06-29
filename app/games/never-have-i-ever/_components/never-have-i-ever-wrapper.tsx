@@ -4,16 +4,17 @@ import SwiperCards from "@/app/games/_components/swiper-cards";
 import IconButton from "@/components/icon-button";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import useAuth from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { NeverHaveIEverCard } from "@prisma/client";
 import { motion } from "framer-motion";
 import { ArrowLeft, Check, Settings, Undo2 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 import NeverHaveIEverSettingsDrawer from "./never-have-i-ever-settings-drawer";
-import Link from "next/link";
 
 interface NeverIHaveEverWrapperProps {
 	allCards: NeverHaveIEverCard[];
@@ -25,12 +26,14 @@ const NeverIHaveEverWrapper = ({
 	neverHaveIEverCards,
 }: NeverIHaveEverWrapperProps) => {
 	const router = useRouter();
+	const { isAuthenticated } = useAuth();
 	const [progress, setProgress] = useState(0);
 	const swiperRef = useRef<SwiperType | null>(null);
 
 	const handleSlideChange = (swiper: SwiperType) => {
 		const totalSlides = swiper.slides.length - 1;
 		const currentIndex = swiper.activeIndex;
+
 		const newProgress = (currentIndex / totalSlides) * 100 || 0;
 		setProgress(newProgress);
 	};
@@ -71,7 +74,11 @@ const NeverIHaveEverWrapper = ({
 					value={progress}
 				/>
 
-				<IconButton drawerType="cardManagerDrawer" icon={<Settings />} />
+				{isAuthenticated ? (
+					<IconButton drawerType="cardManagerDrawer" icon={<Settings />} />
+				) : (
+					<div className="w-[24px] p-1"></div>
+				)}
 			</div>
 			<div className="flex flex-col mt-16 gap-8 items-center">
 				<SwiperCards
