@@ -2,44 +2,39 @@
 
 import db from "@/lib/db";
 import { NeverHaveIEverCardSchema } from "@/lib/schemas";
+import { flattenValidationErrors } from "next-safe-action";
 import { revalidatePath } from "next/cache";
+import { actionClient } from "../safe-action";
 
-const updateNeverHaveIEverCard = async (formData: FormData) => {
-	const name = formData.get("name");
-	const id = formData.get("id");
-	const categoryId = formData.get("categoryId");
-	const validatedData = NeverHaveIEverCardSchema.safeParse({
-		id: Number(id),
-		name: name as string,
-		categoryId: Number(categoryId),
+const updateNeverHaveIEverCard = actionClient
+	.schema(NeverHaveIEverCardSchema, {
+		handleValidationErrorsShape: (ve) =>
+			flattenValidationErrors(ve).fieldErrors,
+	})
+	.action(async ({ parsedInput: { id, name, categoryId } }) => {
+		console.log(id);
+		const existingCard = await db.neverHaveIEverCard.findFirst({
+			where: {
+				id: id,
+			},
+		});
+
+		if (!existingCard) {
+			return { error: "Aucune carte avec cet ID n'existe." };
+		}
+
+		const updatedCard = await db.neverHaveIEverCard.update({
+			where: {
+				id: id,
+			},
+			data: {
+				name: name,
+				categoryId: categoryId,
+			},
+		});
+
+		revalidatePath("/games/never-have-i-ever");
+		return updatedCard;
 	});
-
-	if (!validatedData.success) {
-		return { error: "Les données du formulaire ne sont pas valides." };
-	}
-
-	const existingCard = await db.neverHaveIEverCard.findFirst({
-		where: {
-			id: Number(id),
-		},
-	});
-
-	if (!existingCard) {
-		return { error: "Aucune carte avec cet ID n'existe." };
-	}
-
-	const updatedCard = await db.neverHaveIEverCard.update({
-		where: {
-			id: Number(id),
-		},
-		data: {
-			name: name as string,
-			categoryId: Number(categoryId),
-		},
-	});
-
-	revalidatePath("/never-have-i-ever");
-	return updatedCard;
-};
 
 export default updateNeverHaveIEverCard;

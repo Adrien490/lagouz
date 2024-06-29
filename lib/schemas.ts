@@ -6,9 +6,9 @@ export const PlayerFormSchema = z.object({
 });
 
 export const NeverHaveIEverCardSchema = z.object({
-	id: z.number().int().optional(),
+	id: z.number().optional(),
 	name: z.string().min(1, "Le nom est obligatoire"),
-	categoryId: z.number().int().min(1, "La catégorie est obligatoire"),
+	categoryId: z.number().min(1, "La catégorie est obligatoire"),
 });
 
 export const DeleteNeverHaveIEverCardSchema = z.object({

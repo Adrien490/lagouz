@@ -1,5 +1,6 @@
 "use client";
 import Search from "@/app/games/_components/search";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
 	Drawer,
@@ -7,12 +8,15 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 } from "@/components/ui/drawer";
+import { neverHaveIEverCategories } from "@/data/categories";
 import { useDialog } from "@/hooks/use-dialog";
 import useDrawer from "@/hooks/use-drawer";
-import { truncate } from "@/lib/utils";
+import deleteNeverHaveIEverCard from "@/lib/actions/delete-never-have-i-ever-card";
+import { cn, truncate } from "@/lib/utils";
 import { NeverHaveIEverCard } from "@prisma/client";
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import NeverHaveIEverCardFormDrawer from "./never-have-i-ever-card-form-drawer";
 
@@ -24,8 +28,9 @@ const NeverHaveIEverSettingsDrawer = ({
 	cards,
 }: NeverHaveIEverCardDrawerProps) => {
 	const { mainDrawer, nestedDrawer } = useDrawer();
+	const { execute, result, isExecuting } = useAction(deleteNeverHaveIEverCard);
 
-	const { onOpen } = useDialog();
+	const { onOpen, onClose } = useDialog();
 
 	return (
 		<Drawer
@@ -44,6 +49,9 @@ const NeverHaveIEverSettingsDrawer = ({
 								width={30}
 								height={30}
 							/>
+							{isExecuting && (
+								<Loader2 className="w-6 mr-2 h-6 animate-spin text-red-200" />
+							)}
 						</DrawerTitle>
 						<Button
 							onMouseDown={mainDrawer.onClose}
@@ -61,40 +69,68 @@ const NeverHaveIEverSettingsDrawer = ({
 				</DrawerHeader>
 				<div className="overflow-y-auto grow flex flex-col gap-2">
 					{cards.length > 0 ? (
-						cards.map((card) => (
-							<motion.div
-								key={card.id}
-								className="bg-muted justify-between rounded-lg flex items-center overflow-hidden"
-								whileTap={{ scale: 0.97 }}
-							>
-								<div
-									onClick={() =>
-										nestedDrawer.onOpen("neverHaveIEverCardFormDrawer", {
-											card,
-										})
-									}
-									className="flex-1 py-4 px-4 h-full"
+						cards.map((card) => {
+							const category = neverHaveIEverCategories.find(
+								(category) => category.id === card.categoryId
+							);
+							return (
+								<motion.div
+									key={card.id}
+									className="bg-muted whitespace-nowrap justify-between rounded-lg flex items-center"
+									whileTap={{ scale: 0.97 }}
 								>
-									<p className="font-medium text-md break-words">
-										{truncate(card.name, 50)}
-									</p>
-									<span className="text-xs italic text-muted-foreground">
-										Créée le {new Date(card.createdAt).toLocaleDateString()}
-									</span>
-								</div>
+									<div
+										onClick={() =>
+											nestedDrawer.onOpen("neverHaveIEverCardFormDrawer", {
+												card,
+											})
+										}
+										className="flex-1 py-4 px-4 h-full"
+									>
+										<p className="font-medium text-md break-words">
+											{truncate(card.name, 50)}
+										</p>
+										<Badge
+											className={cn(
+												"mt-2",
+												category?.slug === "hot" ? "bg-red-400" : "bg-green-400"
+											)}
+										>
+											{category?.name}
+											<span className="ml-2">{category?.icon}</span>
+										</Badge>
+										<p className="mt-2 text-xs italic text-muted-foreground">
+											Créée le {new Date(card.createdAt).toLocaleDateString()}
+										</p>
+									</div>
 
-								<Button
-									className="text-red-200 h-full"
-									variant="ghost"
-									onClick={() => {}}
-								>
-									<X className="text-red-300" />
-								</Button>
-							</motion.div>
-						))
+									<Button
+										className="text-red-200"
+										variant="ghost"
+										onClick={() =>
+											onOpen("confirmation", {
+												confirmationDialogProps: {
+													title: "Supprimer la carte",
+													message:
+														"Êtes-vous sr de vouloir supprimer cette carte ?",
+													onConfirm: () => {
+														execute({ id: card.id });
+														onClose();
+													},
+												},
+											})
+										}
+									>
+										<X className="text-red-300" />
+									</Button>
+								</motion.div>
+							);
+						})
 					) : (
 						<div className="flex justify-center items-center h-full">
-							<p className="text-foreground italic">Aucune carte trouvée</p>
+							<p className="text-foreground text-sm italic">
+								Aucune carte trouvée...
+							</p>
 						</div>
 					)}
 				</div>

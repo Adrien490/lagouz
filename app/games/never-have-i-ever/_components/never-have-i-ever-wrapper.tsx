@@ -13,6 +13,7 @@ import { useRef, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 import NeverHaveIEverSettingsDrawer from "./never-have-i-ever-settings-drawer";
+import Link from "next/link";
 
 interface NeverIHaveEverWrapperProps {
 	allCards: NeverHaveIEverCard[];
@@ -60,22 +61,10 @@ const NeverIHaveEverWrapper = ({
 	return (
 		<div className="flex flex-col h-full overflow-x-hidden">
 			<div className="px-4 py-4 flex items-center justify-between">
-				<IconButton
-					dialogType="confirmation"
-					icon={<ArrowLeft />}
-					data={{
-						confirmationDialogProps: {
-							title: "Quitter le jeu ?",
-							message: "Tu veux vraiment quitter le jeu ?",
-							onConfirm: () => {
-								router.push("/games");
-							},
-						},
-						onConfirm: () => {
-							router.push("/games");
-						},
-					}}
-				/>
+				<Link href="/games" className="flex items-center justify-center">
+					<ArrowLeft />
+				</Link>
+
 				<Progress
 					indicatorColor="#FF0086"
 					className="w-[220px]"

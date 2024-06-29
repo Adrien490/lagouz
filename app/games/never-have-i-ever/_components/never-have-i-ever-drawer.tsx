@@ -8,19 +8,20 @@ import {
 } from "@/components/ui/drawer";
 
 import CategoryList from "@/app/games/_components/category-list";
-import StartGameButton from "@/app/games/_components/start-game-button";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { NeverHaveIEverCategories } from "@/data/categories";
-import { useCategorySelection } from "@/hooks/use-category-selection";
+import { neverHaveIEverCategories } from "@/data/categories";
+import { useCategorySelection } from "@/hooks/category-selection-store";
 import useDrawer from "@/hooks/use-drawer";
+import { cn } from "@/lib/utils";
 import { ScrollText, Settings, X } from "lucide-react";
+import Link from "next/link";
 
-const GameDrawer = () => {
+const NeverHaveIEverDrawer = () => {
 	const { mainDrawer } = useDrawer();
 	const { game } = mainDrawer.data;
 	const open = mainDrawer.type === "neverHaveIEverDrawer";
-	const { selectedCategory } = useCategorySelection();
+	const { selectedCategory, selectCategory } = useCategorySelection();
 	return (
 		<Drawer open={open} onClose={mainDrawer.onClose}>
 			<DrawerContent className="flex flex-col pointer-events-auto">
@@ -55,17 +56,29 @@ const GameDrawer = () => {
 							</div>
 							<div className="px-4">
 								<CategoryList
-									categories={NeverHaveIEverCategories}
-									defaultCategory={NeverHaveIEverCategories[1]}
-									displayRandomCategory
+									categories={neverHaveIEverCategories}
+									activeCategory={selectedCategory}
+									onSelect={(category) => {
+										selectCategory(category);
+									}}
 								/>
 							</div>
 						</div>
 					</div>
 					<DrawerFooter className="">
-						<StartGameButton
-							href={`/games/${game?.slug}?category=${selectedCategory?.slug}`}
-						/>
+						<Link
+							onClick={() => {
+								mainDrawer.onClose();
+							}}
+							//remove spaces in url
+							href={cn(
+								selectedCategory?.id !== undefined
+									? `/games/${game?.slug}?category=${selectedCategory?.slug}`
+									: `/games/${game?.slug}`
+							)}
+						>
+							<Button>Démarrer le jeu</Button>
+						</Link>
 					</DrawerFooter>
 				</ScrollArea>
 			</DrawerContent>
@@ -73,4 +86,4 @@ const GameDrawer = () => {
 	);
 };
 
-export default GameDrawer;
+export default NeverHaveIEverDrawer;

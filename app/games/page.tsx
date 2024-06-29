@@ -10,6 +10,7 @@ import db from "@/lib/db";
 import { cn } from "@/lib/utils";
 import { Lock, MessageCircleQuestion, Users2 } from "lucide-react";
 import LogoutButton from "./_components/logout-button";
+import NeverHaveIEverDrawer from "./never-have-i-ever/_components/never-have-i-ever-drawer";
 
 const Page = async () => {
 	const players = await db.player.findMany();
@@ -39,6 +40,7 @@ const Page = async () => {
 			</div>
 			<GameList />
 			<PlayerListDrawer players={players} />
+			<NeverHaveIEverDrawer />
 			{!isAuthenticated && <LoginDrawer />}
 		</div>
 	);

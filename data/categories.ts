@@ -1,5 +1,5 @@
 export type Category = {
-	id: number | null;
+	id: number | undefined;
 	name: string;
 	slug: string;
 	description: string;
@@ -7,7 +7,7 @@ export type Category = {
 	color: string;
 };
 
-export const NeverHaveIEverCategories = [
+export const neverHaveIEverCategories = [
 	{
 		id: 1,
 		name: "Hot",
@@ -25,7 +25,7 @@ export const NeverHaveIEverCategories = [
 		color: "#00FF00",
 	},
 	{
-		id: null,
+		id: undefined,
 		name: "Aléatoire",
 		slug: "aleatoire",
 		description: "Aléatoire",

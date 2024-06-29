@@ -1,4 +1,4 @@
-import { NeverHaveIEverCategories } from "@/data/categories";
+import { neverHaveIEverCategories } from "@/data/categories";
 import db from "@/lib/db";
 import NeverHaveIEverWrapper from "./_components/never-have-i-ever-wrapper";
 
@@ -10,13 +10,13 @@ const Page = async ({
 	searchParams: { [key: string]: string };
 }) => {
 	const categorySlug = searchParams.category;
-	let categoryId: number | null = null;
+	let categoryId: number | undefined = undefined;
 	let cards;
 	const allCards = await db.neverHaveIEverCard.findMany();
 
 	try {
 		if (categorySlug) {
-			const category = NeverHaveIEverCategories.find(
+			const category = neverHaveIEverCategories.find(
 				(category) => category.slug === categorySlug
 			);
 
@@ -24,7 +24,7 @@ const Page = async ({
 				categoryId = category.id;
 			}
 		}
-		if (categoryId === 0) {
+		if (categoryId === undefined) {
 			cards = await db.neverHaveIEverCard.findMany();
 		} else {
 			cards = categoryId

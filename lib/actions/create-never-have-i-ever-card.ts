@@ -2,42 +2,34 @@
 
 import db from "@/lib/db";
 import { NeverHaveIEverCardSchema } from "@/lib/schemas";
+import { flattenValidationErrors } from "next-safe-action";
 import { revalidatePath } from "next/cache";
+import { actionClient } from "../safe-action";
 
-const createNeverHaveIEverCard = async (formData: FormData) => {
-	const name = formData.get("name");
-	const categoryId = formData.get("categoryId");
+const createNeverHaveIEverCard = actionClient
+	.schema(NeverHaveIEverCardSchema, {
+		handleValidationErrorsShape: (ve) =>
+			flattenValidationErrors(ve).fieldErrors,
+	})
+	.action(async ({ parsedInput: { name, categoryId } }) => {
+		const existingCard = await db.neverHaveIEverCard.findFirst({
+			where: {
+				name: name,
+			},
+		});
 
-	const validatedData = NeverHaveIEverCardSchema.safeParse({
-		name: name as string,
-		categoryId: Number(categoryId),
+		if (existingCard) {
+			throw new Error("Une carte avec ce nom existe déjà.");
+		}
+
+		const card = await db.neverHaveIEverCard.create({
+			data: {
+				name: name,
+				categoryId: categoryId,
+			},
+		});
+		revalidatePath("/games/never-have-i-ever");
+		return card;
 	});
-
-	if (!validatedData.success) {
-		return { error: "Les données du formulaire ne sont pas valides." };
-	}
-
-	const { name: validatedName, categoryId: validatedCategoryId } =
-		validatedData.data;
-
-	const existingCard = await db.neverHaveIEverCard.findFirst({
-		where: {
-			name: validatedName,
-		},
-	});
-
-	if (existingCard) {
-		return { error: "Une carte avec ce nom existe déjà." };
-	}
-
-	const card = await db.neverHaveIEverCard.create({
-		data: {
-			name: validatedName,
-			categoryId: validatedCategoryId,
-		},
-	});
-	revalidatePath("/never-have-i-ever");
-	return card;
-};
 
 export default createNeverHaveIEverCard;
