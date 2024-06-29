@@ -9,16 +9,25 @@ const Page = async ({
 	params: { id: string };
 	searchParams: { [key: string]: string };
 }) => {
+	const query = searchParams.search;
 	const categorySlug = searchParams.category;
 	let categoryId: number | undefined = undefined;
 	let cards;
-	const allCards = await db.neverHaveIEverCard.findMany({
-		where: {
-			name: {
-				contains: searchParams.search,
+
+	let allCards = [];
+	try {
+		allCards = await db.neverHaveIEverCard.findMany({
+			where: {
+				name: {
+					contains: query,
+					//mode: "insensitive", // Retirez cette ligne si elle cause des problèmes
+				},
 			},
-		},
-	});
+		});
+	} catch (error) {
+		console.error("Database error:", error);
+		return <div>Error loading cards</div>;
+	}
 
 	try {
 		if (categorySlug) {
@@ -33,13 +42,11 @@ const Page = async ({
 		if (categoryId === undefined) {
 			cards = await db.neverHaveIEverCard.findMany();
 		} else {
-			cards = categoryId
-				? await db.neverHaveIEverCard.findMany({
-						where: {
-							categoryId: categoryId,
-						},
-				  })
-				: await db.neverHaveIEverCard.findMany();
+			cards = await db.neverHaveIEverCard.findMany({
+				where: {
+					categoryId: categoryId,
+				},
+			});
 		}
 	} catch (error) {
 		console.error("Database error:", error);

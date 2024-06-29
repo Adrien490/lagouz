@@ -14,7 +14,7 @@ model Player {
 
 model NeverHaveIEverCard {
   id         Int      @id @default(autoincrement())
-  name       String   @unique
+  name       String
   categoryId Int
   createdAt  DateTime @default(now())
 }

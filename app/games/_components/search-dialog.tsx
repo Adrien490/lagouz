@@ -12,6 +12,7 @@ import { useDialog } from "@/hooks/use-dialog";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 const SearchDialog = () => {
 	const { isOpen, type, onClose } = useDialog();
@@ -21,17 +22,15 @@ const SearchDialog = () => {
 	const router = useRouter();
 	const open = isOpen && type === "search";
 
-	const onSearch = (searchTerm: string) => {
+	const onSearch = useDebouncedCallback((searchTerm: string) => {
 		const params = new URLSearchParams(searchParams);
 		if (searchTerm) {
-			setSearch(searchTerm);
 			params.set("search", searchTerm);
 		} else {
-			setSearch("");
 			params.delete("search");
 		}
 		router.push(`${pathname}?${params.toString()}`);
-	};
+	}, 500);
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
@@ -47,6 +46,7 @@ const SearchDialog = () => {
 							value={search}
 							placeholder="Rechercher..."
 							onChange={(e) => {
+								setSearch(e.target.value);
 								onSearch(e.target.value);
 							}}
 						/>
