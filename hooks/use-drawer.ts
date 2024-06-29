@@ -1,5 +1,4 @@
 import { PlayerListDrawerProps } from "@/app/games/_components/player-list-drawer";
-import { NeverHaveIEverCardFormProps } from "@/app/games/never-have-i-ever/_components/never-have-i-ever-card-form";
 import { Game } from "@/data/games";
 import { NeverHaveIEverCard } from "@prisma/client";
 import { create } from "zustand";
@@ -20,7 +19,7 @@ export interface DrawerData {
 	game?: Game;
 	cards?: NeverHaveIEverCard[];
 	card?: NeverHaveIEverCard;
-	NeverHaveIEverFormProps?: NeverHaveIEverCardFormProps;
+	//NeverHaveIEverFormProps?: NeverHaveIEverCardFormProps;
 	PlayerListDrawerProps?: PlayerListDrawerProps;
 	// autres propriétés...
 }
