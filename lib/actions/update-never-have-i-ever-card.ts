@@ -4,6 +4,7 @@ import db from "@/lib/db";
 import { NeverHaveIEverCardSchema } from "@/lib/schemas";
 import { flattenValidationErrors } from "next-safe-action";
 import { revalidatePath } from "next/cache";
+import auth from "../auth";
 import { actionClient } from "../safe-action";
 
 const updateNeverHaveIEverCard = actionClient
@@ -12,7 +13,13 @@ const updateNeverHaveIEverCard = actionClient
 			flattenValidationErrors(ve).fieldErrors,
 	})
 	.action(async ({ parsedInput: { id, name, categoryId } }) => {
-		console.log(id);
+		const { isAuthenticated } = await auth();
+		if (!isAuthenticated) {
+			return {
+				status: "401",
+				message: "Vous devez être authentifié pour mettre à jour une carte.",
+			};
+		}
 		const existingCard = await db.neverHaveIEverCard.findFirst({
 			where: {
 				id: id,
@@ -20,10 +27,13 @@ const updateNeverHaveIEverCard = actionClient
 		});
 
 		if (!existingCard) {
-			return { error: "Aucune carte avec cet ID n'existe." };
+			return {
+				status: "404",
+				message: "Aucune carte avec cet ID n'existe.",
+			};
 		}
 
-		const updatedCard = await db.neverHaveIEverCard.update({
+		await db.neverHaveIEverCard.update({
 			where: {
 				id: id,
 			},
@@ -34,7 +44,10 @@ const updateNeverHaveIEverCard = actionClient
 		});
 
 		revalidatePath("/games/never-have-i-ever");
-		return updatedCard;
+		return {
+			status: "200",
+			message: "Carte mise à jour avec succès.",
+		};
 	});
 
 export default updateNeverHaveIEverCard;

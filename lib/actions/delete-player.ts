@@ -24,17 +24,16 @@ const deletePlayer = actionClient
 		});
 
 		if (!existingPlayer) {
-			return { error: "Aucun joueur avec cet id n'existe." };
+			throw new Error("Aucun joueur avec cet id n'existe.");
 		}
 
-		const deletedPlayer = await db.player.delete({
+		await db.player.delete({
 			where: {
 				id: existingPlayer.id,
 			},
 		});
 
 		revalidatePath("/games");
-		return deletedPlayer;
 	});
 
 export default deletePlayer;

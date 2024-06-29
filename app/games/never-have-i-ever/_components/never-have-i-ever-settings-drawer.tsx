@@ -8,6 +8,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 } from "@/components/ui/drawer";
+import { Loader } from "@/components/ui/loader";
 import { neverHaveIEverCategories } from "@/data/categories";
 import { useDialog } from "@/hooks/use-dialog";
 import useDrawer from "@/hooks/use-drawer";
@@ -15,7 +16,7 @@ import deleteNeverHaveIEverCard from "@/lib/actions/delete-never-have-i-ever-car
 import { cn, truncate } from "@/lib/utils";
 import { NeverHaveIEverCard } from "@prisma/client";
 import { motion } from "framer-motion";
-import { Loader2, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import NeverHaveIEverCardFormDrawer from "./never-have-i-ever-card-form-drawer";
@@ -49,9 +50,7 @@ const NeverHaveIEverSettingsDrawer = ({
 								width={30}
 								height={30}
 							/>
-							{isExecuting && (
-								<Loader2 className="w-6 mr-2 h-6 animate-spin text-red-200" />
-							)}
+							{isExecuting && <Loader textColor="red" />}
 						</DrawerTitle>
 						<Button
 							onMouseDown={mainDrawer.onClose}
@@ -112,7 +111,7 @@ const NeverHaveIEverSettingsDrawer = ({
 												confirmationDialogProps: {
 													title: "Supprimer la carte",
 													message:
-														"Êtes-vous sr de vouloir supprimer cette carte ?",
+														"Êtes-vous sur de vouloir supprimer cette carte ?",
 													onConfirm: () => {
 														execute({ id: card.id });
 														onClose();

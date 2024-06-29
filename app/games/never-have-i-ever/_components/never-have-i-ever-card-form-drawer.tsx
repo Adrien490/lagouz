@@ -1,5 +1,6 @@
 "use client";
 
+import ServerActionResponse from "@/components/server-action-response";
 import { Button } from "@/components/ui/button";
 import {
 	Drawer,
@@ -40,11 +41,13 @@ const NeverHaveIEverCardFormDrawer = () => {
 		},
 	});
 
-	const { executeAsync, result, isExecuting } = useAction(
+	const { executeAsync, result, isExecuting, reset } = useAction(
 		initialValues ? updateNeverHaveIEverCard : createNeverHaveIEverCard,
 		{
-			onSuccess: () => {
-				nestedDrawer.onClose();
+			onSuccess: ({ data }) => {
+				if (data?.status === "200") {
+					nestedDrawer.onClose();
+				}
 			},
 		}
 	);
@@ -87,6 +90,7 @@ const NeverHaveIEverCardFormDrawer = () => {
 			onClose={() => {
 				nestedDrawer.onClose();
 				form.reset();
+				reset();
 			}}
 			shouldScaleBackground={true}
 		>
@@ -113,8 +117,12 @@ const NeverHaveIEverCardFormDrawer = () => {
 				</DrawerHeader>
 
 				<div className="px-4 mt-4 mb-4">
+					<ServerActionResponse result={result} />
 					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+						<form
+							onSubmit={form.handleSubmit(onSubmit)}
+							className="mt-2 space-y-6"
+						>
 							<FormField
 								name="name"
 								control={form.control}

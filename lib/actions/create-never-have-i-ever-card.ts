@@ -1,5 +1,6 @@
 "use server";
 
+import auth from "@/lib/auth";
 import db from "@/lib/db";
 import { NeverHaveIEverCardSchema } from "@/lib/schemas";
 import { flattenValidationErrors } from "next-safe-action";
@@ -12,6 +13,13 @@ const createNeverHaveIEverCard = actionClient
 			flattenValidationErrors(ve).fieldErrors,
 	})
 	.action(async ({ parsedInput: { name, categoryId } }) => {
+		const { isAuthenticated } = await auth();
+		if (!isAuthenticated) {
+			return {
+				status: "401",
+				message: "Vous devez être authentifié pour créer une carte.",
+			};
+		}
 		const existingCard = await db.neverHaveIEverCard.findFirst({
 			where: {
 				name: name,
@@ -19,17 +27,23 @@ const createNeverHaveIEverCard = actionClient
 		});
 
 		if (existingCard) {
-			throw new Error("Une carte avec ce nom existe déjà.");
+			return {
+				status: "409",
+				message: "Une carte avec ce nom existe déjà.",
+			};
 		}
 
-		const card = await db.neverHaveIEverCard.create({
+		await db.neverHaveIEverCard.create({
 			data: {
 				name: name,
 				categoryId: categoryId,
 			},
 		});
 		revalidatePath("/games/never-have-i-ever");
-		return card;
+		return {
+			status: "200",
+			message: "Carte créée avec succès.",
+		};
 	});
 
 export default createNeverHaveIEverCard;
