@@ -42,7 +42,6 @@ const SearchDialog = () => {
 				<div className="flex flex-col mt-4 gap-6 items-center">
 					<div className="flex gap-4">
 						<Input
-							value={search}
 							placeholder="Rechercher..."
 							onChange={(e) => {
 								onSearch(e.target.value);
