@@ -17,7 +17,6 @@ type Props = {
 
 const ServerActionResponse = ({ result }: Props) => {
 	const { data, serverError, fetchError, validationErrors } = result;
-	console.log(serverError, fetchError, validationErrors);
 	return (
 		<div
 			className={cn(

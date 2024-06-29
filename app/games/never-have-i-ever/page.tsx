@@ -12,7 +12,13 @@ const Page = async ({
 	const categorySlug = searchParams.category;
 	let categoryId: number | undefined = undefined;
 	let cards;
-	const allCards = await db.neverHaveIEverCard.findMany();
+	const allCards = await db.neverHaveIEverCard.findMany({
+		where: {
+			name: {
+				contains: searchParams.search,
+			},
+		},
+	});
 
 	try {
 		if (categorySlug) {

@@ -1,5 +1,5 @@
 "use client";
-import Search from "@/app/games/_components/search";
+import SearchFilter from "@/app/games/_components/search-filter";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -63,10 +63,10 @@ const NeverHaveIEverSettingsDrawer = ({
 					</div>
 					<div className="flex justify-between items-center">
 						<p className="text-sm font-bold">({cards.length} cartes)</p>
-						<Search />
+						<SearchFilter />
 					</div>
 				</DrawerHeader>
-				<div className="overflow-y-auto grow flex flex-col gap-2">
+				<div className="overflow-y-auto px-4 grow flex flex-col gap-2">
 					{cards.length > 0 ? (
 						cards.map((card) => {
 							const category = neverHaveIEverCategories.find(

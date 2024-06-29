@@ -1,32 +1,35 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useDebounce } from "@/hooks/use-debounce";
+import { Input } from "@/components/ui/input";
 import { useDialog } from "@/hooks/use-dialog";
-import { useSearch } from "@/hooks/use-search";
 import Image from "next/image";
-import { useEffect } from "react";
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const SearchDialog = () => {
 	const { isOpen, type, onClose } = useDialog();
-	const { search, setSearch } = useSearch();
-	const debouncedSearch = useDebounce(search, 500); // Use the debounce hook with a delay of 500ms
+	const searchParams = useSearchParams();
+	const pathname = usePathname();
+	const router = useRouter();
 	const open = isOpen && type === "search";
+	const search = searchParams.get("search") || "";
 
-	const onSearch = (search: string) => {
-		setSearch(search);
+	const onSearch = (searchTerm: string) => {
+		const params = new URLSearchParams(searchParams);
+		console.log(params);
+		if (searchTerm) {
+			params.set("search", searchTerm);
+		} else {
+			params.delete("search");
+		}
+		router.push(`${pathname}?${params.toString()}`);
 	};
-
-	useEffect(() => {
-		setSearch(debouncedSearch);
-	}, [debouncedSearch, setSearch]);
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
@@ -39,9 +42,11 @@ const SearchDialog = () => {
 				<div className="flex flex-col mt-4 gap-6 items-center">
 					<div className="flex gap-4">
 						<Input
-							placeholder="Rechercher..."
 							value={search}
-							onChange={(e) => onSearch(e.target.value)}
+							placeholder="Rechercher..."
+							onChange={(e) => {
+								onSearch(e.target.value);
+							}}
 						/>
 					</div>
 					<Button

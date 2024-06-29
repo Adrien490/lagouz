@@ -1,29 +1,34 @@
 "use client";
 
 import { useDialog } from "@/hooks/use-dialog";
-import { useSearch } from "@/hooks/use-search";
 import { SearchIcon, X } from "lucide-react";
-import { useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 
-const Search = () => {
-	const { search, setSearch } = useSearch();
+const SearchFilter = () => {
+	const searchParams = useSearchParams();
+	const router = useRouter();
+	const pathname = usePathname();
+	const search = searchParams.get("search") || "";
 	const { onOpen } = useDialog();
 
 	const onDeleteFilter = () => {
-		setSearch("");
+		const params = new URLSearchParams(searchParams);
+		if (params.has("search")) {
+			params.delete("search");
+			router.push(`${pathname}`);
+		}
 	};
-
-	useEffect(() => {
-		setSearch(search);
-	}, [search, setSearch]);
 
 	return (
 		<>
 			{search ? (
-				<div className="max-w-[150px] border rounded-lg px-4 flex items-center justify-between">
+				<div
+					onClick={onDeleteFilter}
+					className="cursor-pointer max-w-[150px] border rounded-lg px-4 flex items-center justify-between"
+				>
 					<p className="text-sm italic truncate">{search}</p>
-					<Button className="pr-0" variant="ghost" onClick={onDeleteFilter}>
+					<Button className="pr-0" variant="ghost">
 						<X className="text-red-300" />
 					</Button>
 				</div>
@@ -40,4 +45,4 @@ const Search = () => {
 	);
 };
 
-export default Search;
+export default SearchFilter;
