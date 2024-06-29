@@ -1,5 +1,6 @@
 "use client";
 import SearchFilter from "@/app/games/_components/search-filter";
+import ShinyButton from "@/components/magicui/shiny-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,7 @@ import deleteNeverHaveIEverCard from "@/lib/actions/delete-never-have-i-ever-car
 import { cn, truncate } from "@/lib/utils";
 import { NeverHaveIEverCard } from "@prisma/client";
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import NeverHaveIEverCardFormDrawer from "./never-have-i-ever-card-form-drawer";
@@ -132,18 +133,15 @@ const NeverHaveIEverSettingsDrawer = ({
 							</p>
 						</div>
 					)}
-				</div>
-
-				<div className="flex justify-center items-center py-2 px-4">
-					<Button
-						className="py-6 text-lg font-bold border-4 border-white bg-[#FF0086] w-full"
-						variant="ghost"
-						onClick={() => {
-							nestedDrawer.onOpen("neverHaveIEverCardFormDrawer");
-						}}
-					>
-						Ajouter une carte
-					</Button>
+					<div className="backdrop-blur-sm fixed bg-gradient-to-b from-transparent to-background/50 bottom-0 py-2 left-0 flex justify-center right-0">
+						<ShinyButton
+							text="Ajouter une carte"
+							Icon={Plus}
+							onClick={() => {
+								nestedDrawer.onOpen("neverHaveIEverCardFormDrawer");
+							}}
+						/>
+					</div>
 				</div>
 
 				<NeverHaveIEverCardFormDrawer />

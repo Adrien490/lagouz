@@ -15,11 +15,11 @@ import { useState } from "react";
 
 const SearchDialog = () => {
 	const { isOpen, type, onClose } = useDialog();
+	const [search, setSearch] = useState("");
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
 	const router = useRouter();
 	const open = isOpen && type === "search";
-	const [search, setSearch] = useState("");
 
 	const onSearch = (searchTerm: string) => {
 		const params = new URLSearchParams(searchParams);
