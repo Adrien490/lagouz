@@ -17,7 +17,7 @@ import deleteNeverHaveIEverCard from "@/lib/actions/delete-never-have-i-ever-car
 import { cn, truncate } from "@/lib/utils";
 import { NeverHaveIEverCard } from "@prisma/client";
 import { motion } from "framer-motion";
-import { Plus, X } from "lucide-react";
+import { Plus, UndoDot, X } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import NeverHaveIEverCardFormDrawer from "./never-have-i-ever-card-form-drawer";
@@ -36,6 +36,7 @@ const NeverHaveIEverSettingsDrawer = ({
 
 	return (
 		<Drawer
+			dismissible={false}
 			shouldScaleBackground={true}
 			open={mainDrawer.type === "cardManagerDrawer"}
 			onClose={mainDrawer.onClose}
@@ -133,7 +134,7 @@ const NeverHaveIEverSettingsDrawer = ({
 							</p>
 						</div>
 					)}
-					<div className="backdrop-blur-sm fixed bg-gradient-to-b from-transparent to-background/50 bottom-0 py-2 left-0 flex justify-center right-0">
+					<div className="backdrop-blur-sm fixed bg-gradient-to-b from-transparent to-background/50 bottom-0 py-2 left-0 flex justify-between items-center right-0 px-4">
 						<ShinyButton
 							text="Ajouter une carte"
 							Icon={Plus}
@@ -141,6 +142,13 @@ const NeverHaveIEverSettingsDrawer = ({
 								nestedDrawer.onOpen("neverHaveIEverCardFormDrawer");
 							}}
 						/>
+						<Button
+							onClick={() => mainDrawer.onClose()}
+							className="border-l border-white/20 h-full"
+							variant="ghost"
+						>
+							<UndoDot className="" />
+						</Button>
 					</div>
 				</div>
 
