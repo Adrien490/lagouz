@@ -2,7 +2,6 @@
 
 import games from "@/data/games";
 import useDrawer from "@/hooks/use-drawer";
-import { itemVariants } from "@/lib/animations";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -10,7 +9,7 @@ const GameList = () => {
 	const { mainDrawer } = useDrawer();
 
 	return (
-		<div className="flex py-4 snap-y flex-col grow overflow-y-auto gap-4 overflow-x-hidden">
+		<div className="flex pt-24 pb-4 snap-y flex-col grow overflow-y-auto gap-4 overflow-x-hidden">
 			{games.map((game) => (
 				<motion.div
 					onClick={() =>
@@ -19,11 +18,8 @@ const GameList = () => {
 						})
 					}
 					key={game.slug}
-					className="relative cursor-pointer rounded-lg bg-white/10 flex gap-3"
-					variants={itemVariants}
-					initial="hidden"
-					animate="visible"
-					whileTap="click"
+					className="relative cursor-pointer rounded-lg bg-muted/50 flex gap-3"
+					whileTap={{ scale: 0.95 }}
 				>
 					<div className="relative w-[225px] h-[125px] rounded-l-lg overflow-hidden">
 						<Image
