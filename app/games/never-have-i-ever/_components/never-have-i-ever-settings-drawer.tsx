@@ -87,7 +87,7 @@ const NeverHaveIEverSettingsDrawer = ({
 										className="flex-1 py-4 px-4 h-full"
 									>
 										<p className="font-medium text-md break-words">
-											{truncate(card.name, 50)}
+											{truncate(card.name, 40)}
 										</p>
 										<Badge
 											className={cn(
