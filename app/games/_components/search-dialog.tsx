@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useDialog } from "@/hooks/use-dialog";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const SearchDialog = () => {
 	const { isOpen, type, onClose } = useDialog();
@@ -18,12 +19,13 @@ const SearchDialog = () => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const open = isOpen && type === "search";
-	const search = searchParams.get("search") || "";
+	const [search, setSearch] = useState("");
 
 	const onSearch = (searchTerm: string) => {
 		const params = new URLSearchParams(searchParams);
 		console.log(params);
 		if (searchTerm) {
+			setSearch(searchTerm);
 			params.set("search", searchTerm);
 		} else {
 			params.delete("search");
@@ -42,6 +44,7 @@ const SearchDialog = () => {
 				<div className="flex flex-col mt-4 gap-6 items-center">
 					<div className="flex gap-4">
 						<Input
+							value={search}
 							placeholder="Rechercher..."
 							onChange={(e) => {
 								onSearch(e.target.value);
