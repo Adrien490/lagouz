@@ -23,11 +23,11 @@ const SearchDialog = () => {
 
 	const onSearch = (searchTerm: string) => {
 		const params = new URLSearchParams(searchParams);
-		console.log(params);
 		if (searchTerm) {
 			setSearch(searchTerm);
 			params.set("search", searchTerm);
 		} else {
+			setSearch("");
 			params.delete("search");
 		}
 		router.push(`${pathname}?${params.toString()}`);
