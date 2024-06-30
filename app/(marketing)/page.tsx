@@ -54,10 +54,10 @@ const Page = () => {
 					</div>
 				</div>
 			</div>
-			<div className="relative mt-20 flex flex-col gap-4 px-6">
+			<div className="relative overflow-hidden mt-20 flex flex-col gap-4 px-6">
 				<h3 className="text-2xl font-bold mb-8">La Gouz, qu&apos;est-ce ?</h3>
 				<div className="flex gap-4">
-					<div className="grow overflow-clip">
+					<div className="w-[175px] border overflow-clip">
 						<p className="text-xs leading-tight">
 							On est d&apos;accord : Toz c&apos;est pas ouf pour faire des
 							soirées. Et en plus on peut pas rajouter nos propres phrases dans
@@ -77,9 +77,9 @@ const Page = () => {
 						</Button>
 					</div>
 					<video
-						className="rounded-lg border-2 border-white"
-						width="175"
-						height="120"
+						className="rounded-lg border-2 border-white grow"
+						width="90"
+						height="auto"
 						autoPlay
 						muted
 						loop
