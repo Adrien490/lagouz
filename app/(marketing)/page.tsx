@@ -54,7 +54,7 @@ const Page = () => {
 					</div>
 				</div>
 			</div>
-			<div className="relative overflow-hidden mt-20 flex flex-col gap-4 px-6">
+			<div className="relative overflow-hidden mt-28 flex flex-col gap-4 px-6">
 				<h3 className="text-2xl font-bold mb-8">La Gouz, qu&apos;est-ce ?</h3>
 				<div className="flex gap-4">
 					<div className="w-[175px] overflow-clip">
@@ -89,7 +89,7 @@ const Page = () => {
 					</video>
 				</div>
 			</div>
-			<div className="relative mt-20">
+			<div className="relative mt-28">
 				<h3 className="text-2xl font-bold px-6 mb-8">Des jeux de ouf !</h3>
 				<Marquee className="[--duration:20s]">
 					{games.map((game) => (
