@@ -54,7 +54,42 @@ const Page = () => {
 					</div>
 				</div>
 			</div>
-			<div className="relative mt-14">
+			<div className="relative mt-20 flex flex-col gap-4 px-6">
+				<h3 className="text-2xl font-bold mb-8">La Gouz, qu&apos;est-ce ?</h3>
+				<div className="flex gap-4">
+					<div className="grow overflow-clip">
+						<p className="text-xs leading-tight">
+							On est d&apos;accord : Toz c&apos;est pas ouf pour faire des
+							soirées. Et en plus on peut pas rajouter nos propres phrases dans
+							les jeux...
+							<br />
+							<br />
+							Ben let&apos;s go ! J&apos;ai geeké pendant des mois pour sortir
+							cette app et j&apos;espère qu&apos;elle fera l&apos;unanimité
+							bhahahaha.
+							<br />
+							<br />
+							Pourquoi La Gouz ? Tu le découvriras bien assez tôt... <br /> En
+							attendant, clique ici 😇
+						</p>
+						<Button className="bg-transparent border-2 border-white mt-8 w-full">
+							Commencer à jouer !
+						</Button>
+					</div>
+					<video
+						className="rounded-lg border-2 border-white"
+						width="175"
+						height="120"
+						autoPlay
+						muted
+						loop
+					>
+						<source src="/cam.mp4" type="video/mp4" />
+						Your browser does not support the video tag.
+					</video>
+				</div>
+			</div>
+			<div className="relative mt-20">
 				<h3 className="text-2xl font-bold px-6 mb-8">Des jeux de ouf !</h3>
 				<Marquee className="[--duration:20s]">
 					{games.map((game) => (
