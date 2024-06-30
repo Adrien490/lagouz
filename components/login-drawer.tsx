@@ -36,7 +36,7 @@ const LoginDrawer = () => {
 					<div className="pt-4 flex items-center flex-col">
 						<LoginForm />
 						<div className="flex gap-2 w-full items-center">
-							<div className="bg-white/10 h-2 w-full rounded-lg"></div>
+							<div className="bg-white/10 border-primary h-2 w-full rounded-lg"></div>
 							<h4 className="text-center text-2xl">OU</h4>
 							<div className="bg-white/10 h-2 w-full rounded-lg"></div>
 						</div>
@@ -45,7 +45,7 @@ const LoginDrawer = () => {
 							className="mt-8"
 							href="/games"
 						>
-							<Button className="py-4 text-lg" variant="secondary">
+							<Button className="text-lg bg-transparent border-2 border-white text-white">
 								Continuer en mode invité
 							</Button>
 						</Link>
