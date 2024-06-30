@@ -1,13 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import SparklesText from "./magicui/sparkles-text";
+import Image from "next/image";
 
 const Logo = () => {
 	return (
-		<Link href="/">
-			<SparklesText className="text-3xl" text="La Gouz" />
-		</Link>
+		<div className="flex items-center space-x-2">
+			<div className="relative w-[65px] h-[40px]">
+				<Image src="/logo.png" alt="La Gouz" fill />
+			</div>
+			<h1 className="text-sm italic font-bold">La Gouz</h1>
+		</div>
 	);
 };
 

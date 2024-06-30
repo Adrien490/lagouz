@@ -68,7 +68,7 @@ const NeverHaveIEverSettingsDrawer = ({
 						<SearchFilter />
 					</div>
 				</DrawerHeader>
-				<div className="overflow-y-auto px-4 grow flex flex-col gap-2">
+				<div className="overflow-y-auto px-4 pb-20 grow flex flex-col gap-2">
 					{cards.length > 0 ? (
 						cards.map((card) => {
 							const category = neverHaveIEverCategories.find(
