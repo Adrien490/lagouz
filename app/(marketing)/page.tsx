@@ -16,7 +16,7 @@ const Page = () => {
 	const { mainDrawer } = useDrawer();
 	return (
 		<div className="relative flex flex-col pb-8">
-			<div className="z-20 fixed top-0 left-0 right-0 px-6 h-14 py-2 flex items-center justify-between bg-transparent">
+			<div className="z-20 backdrop-blur-sm fixed top-0 left-0 right-0 px-6 h-14 py-2 flex items-center justify-between bg-transparent">
 				<Logo />
 				<div className="flex gap-1">
 					<IconButton drawerType="FAQ" icon={<MessageCircleQuestion />} />
