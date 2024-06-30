@@ -72,7 +72,10 @@ const Page = () => {
 							Pourquoi La Gouz ? Tu le découvriras bien assez tôt... <br /> En
 							attendant, clique ici 😇
 						</p>
-						<Button className="bg-transparent border-2 border-white mt-8 w-full">
+						<Button
+							onClick={() => mainDrawer.onOpen("loginDrawer")}
+							className="bg-transparent border-2 border-white mt-8 w-full"
+						>
 							Commencer à jouer !
 						</Button>
 					</div>
