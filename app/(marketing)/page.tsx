@@ -9,7 +9,7 @@ import { MessageCircleQuestion } from "lucide-react";
 import FAQDrawer from "../games/_components/faq-drawer";
 
 const Page = () => {
-	const words = ["cools", "incroyables", "good vibes", "inoubliables "];
+	const words = ["incroyables", "good vibes", "inoubliables "];
 	const { mainDrawer } = useDrawer();
 	return (
 		<div className="relative flex flex-col">
