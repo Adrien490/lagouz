@@ -55,7 +55,7 @@ const games: Game[] = [
 		rules: "Découvrez les vérités cachées de vos amis !",
 		imageUrl: "/quidanslapiece.jpeg",
 		description:
-			"Deviner des caractéristiques ou des histoires concernant les personnes présentes !",
+			"Deviner des caractéristiques concernant les personnes présentes !",
 		drawerType: "neverHaveIEverDrawer",
 	},
 ];

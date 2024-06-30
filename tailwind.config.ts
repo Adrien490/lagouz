@@ -77,7 +77,14 @@ const config = {
 						backgroundPosition: "350% 50%, 350% 50%",
 					},
 				},
-
+				marquee: {
+					from: { transform: "translateX(0)" },
+					to: { transform: "translateX(calc(-100% - var(--gap)))" },
+				},
+				"marquee-vertical": {
+					from: { transform: "translateY(0)" },
+					to: { transform: "translateY(calc(-100% - var(--gap)))" },
+				},
 				shimmer: {
 					from: {
 						backgroundPosition: "0 0",
@@ -101,6 +108,8 @@ const config = {
 				},
 			},
 			animation: {
+				marquee: "marquee var(--duration) linear infinite",
+				"marquee-vertical": "marquee-vertical var(--duration) linear infinite",
 				shimmer: "shimmer 2s linear infinite",
 				aurora: "aurora 60s linear infinite",
 				"caret-blink": "caret-blink 1.25s ease-out infinite",
