@@ -18,9 +18,9 @@ const CategoryList = ({
 }: CategoryListProps) => {
 	return (
 		<div className="grid grid-cols-2 gap-4">
-			{categories.map((category) => (
+			{categories.map((category, index) => (
 				<motion.div
-					key={category.id}
+					key={index}
 					className="bg-gradient-to-r from-transparent to-muted border-2 relative flex-1 py-6 p-4 rounded-lg opacity-90 flex flex-col items-center justify-center gap-2"
 					onClick={() => {
 						onSelect(category);

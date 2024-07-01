@@ -2,7 +2,7 @@
 
 import SearchDialog from "@/app/games/_components/search-dialog";
 import ConfirmationDialog from "@/components/confirmation-dialog";
-import { Loader } from "@/components/ui/loader";
+import { Loader } from "@/components/loader";
 import { Suspense } from "react";
 
 const ModalProvider = () => {

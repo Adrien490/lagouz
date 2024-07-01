@@ -1,4 +1,3 @@
-import { CategorySelectionProvider } from "@/providers/category-selection-provider";
 import ModalProvider from "@/providers/modal-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -27,7 +26,7 @@ export default function RootLayout({
 				<div className="relative lg:container h-full mx-auto">
 					<Toaster />
 					<ModalProvider />
-					<CategorySelectionProvider>{children}</CategorySelectionProvider>
+					{children}
 				</div>
 			</body>
 		</html>

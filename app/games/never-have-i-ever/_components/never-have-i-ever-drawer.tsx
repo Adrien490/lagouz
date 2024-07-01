@@ -10,23 +10,34 @@ import {
 import CategoryList from "@/app/games/_components/category-list";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { neverHaveIEverCategories } from "@/data/categories";
+import { Category, neverHaveIEverCategories } from "@/data/categories";
 import useDrawer from "@/hooks/use-drawer";
 import { cn } from "@/lib/utils";
-import { useCategorySelectionStore } from "@/providers/category-selection-provider";
 import { ScrollText, Settings, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const NeverHaveIEverDrawer = () => {
 	const { mainDrawer } = useDrawer();
 	const { game } = mainDrawer.data;
 	const open = mainDrawer.type === "neverHaveIEverDrawer";
-	const { selectedCategory, selectCategory } = useCategorySelectionStore(
-		(state) => ({
-			selectedCategory: state.selectedCategory,
-			selectCategory: state.selectCategory,
-		})
+	const searchParams = useSearchParams();
+	const pathname = usePathname();
+	const router = useRouter();
+	const category = searchParams.get("selectedCategory");
+	const selectedCategory = neverHaveIEverCategories.find(
+		(c) => c.slug === category
 	);
+	const onCategorySelect = (category: Category) => {
+		const params = new URLSearchParams(searchParams.toString());
+		if (category.slug === selectedCategory?.slug) {
+			params.delete("selectedCategory");
+		} else {
+			params.set("selectedCategory", category.slug);
+		}
+		// Update the URL with the new search params
+		router.push(`${pathname}?${params.toString()}`);
+	};
 	return (
 		<Drawer open={open} onClose={mainDrawer.onClose}>
 			<DrawerContent className="flex flex-col pointer-events-auto">
@@ -63,9 +74,7 @@ const NeverHaveIEverDrawer = () => {
 								<CategoryList
 									categories={neverHaveIEverCategories}
 									activeCategory={selectedCategory}
-									onSelect={(category) => {
-										selectCategory(category);
-									}}
+									onSelect={onCategorySelect}
 								/>
 							</div>
 						</div>

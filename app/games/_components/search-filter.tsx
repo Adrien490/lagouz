@@ -1,9 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useDialog } from "@/hooks/use-dialog";
 import { SearchIcon, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Button } from "../../../components/ui/button";
 
 const SearchFilter = () => {
 	const searchParams = useSearchParams();

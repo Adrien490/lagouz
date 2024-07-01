@@ -1,5 +1,6 @@
 "use client";
 import SearchFilter from "@/app/games/_components/search-filter";
+import { Loader } from "@/components/loader";
 import ShinyButton from "@/components/magicui/shiny-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,6 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 } from "@/components/ui/drawer";
-import { Loader } from "@/components/ui/loader";
 import { neverHaveIEverCategories } from "@/data/categories";
 import { useDialog } from "@/hooks/use-dialog";
 import useDrawer from "@/hooks/use-drawer";

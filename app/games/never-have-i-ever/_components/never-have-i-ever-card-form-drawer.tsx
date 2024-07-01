@@ -10,14 +10,14 @@ import {
 } from "@/components/ui/drawer";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { neverHaveIEverCategories } from "@/data/categories";
+import { Category, neverHaveIEverCategories } from "@/data/categories";
 import useDrawer from "@/hooks/use-drawer";
 import createNeverHaveIEverCard from "@/lib/actions/create-never-have-i-ever-card";
 import updateNeverHaveIEverCard from "@/lib/actions/update-never-have-i-ever-card";
-import { useCategorySelectionStore } from "@/providers/category-selection-provider";
 import { Loader2, X } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CategoryList from "../../_components/category-list";
@@ -26,12 +26,23 @@ import SubmitButton from "../../_components/submit-button";
 const NeverHaveIEverCardFormDrawer = () => {
 	const { nestedDrawer } = useDrawer();
 	const initialValues = nestedDrawer.data.card ?? null;
-	const { selectedCategory, selectCategory } = useCategorySelectionStore(
-		(state) => ({
-			selectedCategory: state.selectedCategory,
-			selectCategory: state.selectCategory,
-		})
+	const searchParams = useSearchParams();
+	const pathname = usePathname();
+	const category = searchParams.get("selectedCategory");
+	const router = useRouter();
+	const selectedCategory = neverHaveIEverCategories.find(
+		(c) => c.slug === category
 	);
+	const onCategorySelect = (category: Category) => {
+		const params = new URLSearchParams(searchParams.toString());
+		if (category.slug === selectedCategory?.slug) {
+			params.delete("selectedCategory");
+		} else {
+			params.set("selectedCategory", category.slug);
+		}
+		// Update the URL with the new search params
+		router.push(`${pathname}?${params.toString()}`);
+	};
 
 	const form = useForm({
 		//resolver: zodResolver(NeverHaveIEverCardSchema),
@@ -70,19 +81,13 @@ const NeverHaveIEverCardFormDrawer = () => {
 				name: initialValues.name,
 				categoryId: initialValues.id,
 			});
-			const category = neverHaveIEverCategories.find(
-				(category) => category.id === initialValues.categoryId
-			);
-			if (category) {
-				selectCategory(category);
-			}
 		} else {
 			form.reset({
 				name: "",
 				categoryId: 0,
 			});
 		}
-	}, [form, initialValues, selectCategory]);
+	}, [form, initialValues]);
 
 	return (
 		<Drawer
@@ -142,9 +147,7 @@ const NeverHaveIEverCardFormDrawer = () => {
 								categories={neverHaveIEverCategories.filter(
 									(category) => category.id !== undefined
 								)}
-								onSelect={(category) => {
-									selectCategory(category);
-								}}
+								onSelect={onCategorySelect}
 								activeCategory={selectedCategory}
 							/>
 
